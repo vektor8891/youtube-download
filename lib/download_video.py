@@ -29,7 +29,7 @@ def slugify_title(title):
         str: The slugified title.
 
     """
-    return title.replace(' ', '_').replace('-', '_').lower()
+    return title.replace(' ', '_').replace('-', '_').replace('|', '-').replace('/', '-').lower()
 
 
 def download_video(url, path):
