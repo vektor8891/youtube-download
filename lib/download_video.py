@@ -27,10 +27,12 @@ def slugify_title(title):
         str: The slugified title.
 
     """
-    return title.replace(' ', '_').replace('-', '_').replace('|', '-').replace('/', '-').lower()
+    #keep only A-Z, 0-9 and whitespace
+    title = ''.join(e for e in title if e.isalnum() or e.isspace())
+    return title
 
 
-def download_video(url, path, overwrite=False):
+def download_video(url, path, overwrite=False, extension='mp4'):
     """
     Downloads a video from the given URL and saves it to the specified path.
 
@@ -43,8 +45,8 @@ def download_video(url, path, overwrite=False):
     """
     title = get_video_title(url)
     filename = slugify_title(title)
-    filepath = f"{path}/{filename}.mp4"
-    if os.path.exists(filepath) and not overwrite:
-        print(f"File {filename}.mp4 already exists. Skipping download.")
+    filepath = os.path.join(path, f"{filename}.{extension}")
+    if not overwrite and os.path.exists(filepath):
+        print(f"File {filename}.{extension} already exists. Skipping download.")
         return
     YouTube(url).streams.first().download(output_path=path, filename=filename)
