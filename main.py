@@ -5,9 +5,9 @@ from lib.get_channel_videos import get_channel_videos
 
 # Little Bear
 url_path = 'output/little_bear.txt'
-channel_id = 'UCncFzSeWqySvOXEbQoEJsZg'
+# channel_id = 'UCncFzSeWqySvOXEbQoEJsZg'
 # Bogyo es Baboca
-url_path = 'output/bogyo_es_baboca.txt'
+# url_path = 'output/bogyo_es_baboca.txt'
 # channel_id = 'UCmsxuZrnb-MNYpqPd-XxLog'
 # Wall-E
 # url_path = 'output/wall_e.txt'
