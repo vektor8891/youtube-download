@@ -1,5 +1,6 @@
 import os
 from pytube import YouTube
+from pytube.exceptions import AgeRestrictedError
 
 
 def get_video_title(url):
@@ -59,4 +60,8 @@ def download_video(url, path, overwrite=False, extension='mp4', skip_words=None)
         print(f"{filename} already exists. Skipping download.")
         return
     print(f'Downloading {url} into {filename}')
-    YouTube(url).streams.first().download(output_path=path, filename=filename)
+    try:
+        YouTube(url).streams.first().download(
+            output_path=path, filename=filename)
+    except AgeRestrictedError:
+        print(f"Cannot download {url} because it is age-restricted.")
