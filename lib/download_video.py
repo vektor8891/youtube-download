@@ -44,8 +44,9 @@ def download_video(url, path, overwrite=False, extension='mp4'):
         None
     """
     title = get_video_title(url)
-    filename = slugify_title(title)
-    filepath = os.path.join(path, f"{filename}.{extension}")
+    title_slug = slugify_title(title)
+    filename = f"{title_slug}.{extension}"
+    filepath = os.path.join(path, filename)
     if not overwrite and os.path.exists(filepath):
         print(f"File {filename}.{extension} already exists. Skipping download.")
         return
