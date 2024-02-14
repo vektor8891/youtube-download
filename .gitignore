@@ -1,5 +1,6 @@
 myenv/
 output/
 .vscode/
+renv/
 *.pyc
 .Rproj.user
