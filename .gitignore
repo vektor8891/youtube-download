@@ -1,5 +1,6 @@
 myenv/
-output/
+output/*
+!output/.gitignore
 .vscode/
 renv/
 *.pyc
