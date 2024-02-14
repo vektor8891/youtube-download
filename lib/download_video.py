@@ -27,8 +27,10 @@ def slugify_title(title):
         str: The slugified title.
 
     """
-    #keep only A-Z, 0-9 and whitespace
-    title = ''.join(e for e in title if e.isalnum() or e.isspace())
+    # replace | and / with hyphen
+    title = title.replace('|', '-').replace('/', '-')
+    # keep only A-Z, 0-9, whitespace and hyphen
+    title = ''.join(e for e in title if e.isalnum() or e.isspace() or e == '-')
     return title
 
 
@@ -48,6 +50,6 @@ def download_video(url, path, overwrite=False, extension='mp4'):
     filename = f"{title_slug}.{extension}"
     filepath = os.path.join(path, filename)
     if not overwrite and os.path.exists(filepath):
-        print(f"File {filename}.{extension} already exists. Skipping download.")
+        print(f"{filename} already exists. Skipping download.")
         return
     YouTube(url).streams.first().download(output_path=path, filename=filename)
