@@ -7,13 +7,18 @@ from lib.get_channel_videos import get_channel_videos
 url_path = 'output/little_bear.txt'
 channel_id = 'UCncFzSeWqySvOXEbQoEJsZg'
 # Bogyo es Baboca
-# url_path = 'output/bogyo_es_baboca.txt'
+url_path = 'output/bogyo_es_baboca.txt'
 # channel_id = 'UCmsxuZrnb-MNYpqPd-XxLog'
 # Wall-E
 # url_path = 'output/wall_e.txt'
 # channel_id = 'UCGh0buCqdEGegoIkU8ZVxuQ'
-max_videos = 1
+
+# maximum number of videos to download
+max_videos = 10
+# if a file with the same name already exists, overwrite it
 overwrite = False
+# skip if title includes any of these words
+skip_words = ['előzetes']
 
 
 def main():
@@ -28,9 +33,8 @@ def main():
         get_channel_videos(channel_id, url_path)
     with open(url_path, 'r') as f:
         for line in itertools.islice(f, max_videos):
-            print(f'Downloading {line.strip()}')
             url = line.strip()
-            download_video(url, 'output')
+            download_video(url=url, path='output', skip_words=skip_words, overwrite=overwrite)
 
 
 if __name__ == "__main__":
