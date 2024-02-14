@@ -1,6 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
-
+import os
 from pytube import YouTube
 
 
@@ -32,7 +30,7 @@ def slugify_title(title):
     return title.replace(' ', '_').replace('-', '_').replace('|', '-').replace('/', '-').lower()
 
 
-def download_video(url, path):
+def download_video(url, path, overwrite=False):
     """
     Downloads a video from the given URL and saves it to the specified path.
 
@@ -45,5 +43,8 @@ def download_video(url, path):
     """
     title = get_video_title(url)
     filename = slugify_title(title)
-    yt = YouTube(url)
-    yt.streams.first().download(output_path=path, filename=filename)
+    filepath = f"{path}/{filename}.mp4"
+    if os.path.exists(filepath) and not overwrite:
+        print(f"File {filename}.mp4 already exists. Skipping download.")
+        return
+    YouTube(url).streams.first().download(output_path=path, filename=filename)
